@@ -12,13 +12,21 @@ eventListeners();
 function eventListeners() { //Tüm event listenerlar
     form.addEventListener("submit", addTodo)
     document.addEventListener("DOMContentLoaded",loadAllTodosToUI)
+    secondCardBody.addEventListener("click",deleteTodo)
+}
+function deleteTodo(e){
+
+    if(e.target.className === "fa fa-remove"){
+        e.target.parentElement.parentElement.remove();
+        showAlert("success","Başarıyla Silindi")
+    }
 }
 function loadAllTodosToUI(){
     let todos = getTodosFromStorage()
 
     todos.forEach(function(todo){
         addTodoToUI(todo);
-        
+
     })
 }
 function addTodo(e) {
@@ -53,7 +61,7 @@ function addTodoToStorage(newTodo){
 function showAlert(type, message) {
     const alert = document.createElement("div");
 
-    alert.className = `alert alert-${type}`
+    alert.className = `alert alert-${type} alert-dismissible fade show `
     alert.textContent = message
 
     firstCardBody.appendChild(alert)
