@@ -39,4 +39,5 @@ function addTodoToUI(newTodo) { //String değerini list item olarak UI'a ekleyec
     //Todo List'e List Item'ı ekleme
 
     todoList.appendChild(listItem)
+    todoInput.value = ""
 }
