@@ -16,20 +16,31 @@ function eventListeners() { //Tüm event listenerlar
 function addTodo(e) {
     const newTodo = todoInput.value.trim()
     if (newTodo === "") {
-        /* <div class="alert alert-danger">
-            <strong>Danger!</strong> This alert box could indicate a dangerous or potentially negative action.
-        </div> */
+       
         showAlert("danger", "Lütfen bir todo girin");
     }
     else {
         addTodoToUI(newTodo);
+        addTodoToStorage(newTodo)
         showAlert("success", "Todo başarıyla eklendi")
     }
-
-
-
-
     e.preventDefault();
+}
+function getTodosFromStorage(){ // Storagedan Todoları Alma
+    let todos
+
+    if (localStorage.getItem("todos") === null){
+        todos = []
+    }
+    else {
+        todos = JSON.parse(localStorage.getItem("todos"))
+    }
+    return todos
+}
+function addTodoToStorage(newTodo){
+    let todos = getTodosFromStorage()
+    todos.push(newTodo)
+    localStorage.setItem("todos",JSON.stringify(todos))
 }
 function showAlert(type, message) {
     const alert = document.createElement("div");
@@ -45,7 +56,6 @@ function showAlert(type, message) {
     alert.remove()
     },1000)
 }
-
 function addTodoToUI(newTodo) { //String değerini list item olarak UI'a ekleyecek
     //List Item Oluşturma
     const listItem = document.createElement("li");
